@@ -21,22 +21,26 @@ function startTimer(duration, display) {
 
         if (--timer < 0) {
             clearInterval(timer);
+            document.getElementById("notificationSound").play(); // Riproduce il suono
+
             if (isWorkTime) {
                 if (currentCycle < cycleCount) {
                     isWorkTime = false;
                     timer = breakTime * 60;
-                    document.getElementById("studyMessage").textContent = "Tempo di pausa!";
+                    document.getElementById("studyMessage").textContent = "Bravissima! Ora pausa ﺕ";
                     currentCycle++;
                     document.getElementById("cycleInfo").textContent = `Ciclo ${currentCycle}/${cycleCount}`;
+                    document.getElementById("notificationSound").play(); // Riproduce il suono all'inizio della pausa
                 } else {
-                    document.getElementById("studyMessage").textContent = "Complimenti! Hai completato tutti i cicli!";
+                    document.getElementById("studyMessage").textContent = "Hai completato tutti i cicli! Ora vai a sgranocchiare qualcosa ﺕ";
                     document.getElementById("toggleIcon").className = "fas fa-play";
                     isRunning = false;
                 }
             } else {
                 isWorkTime = true;
                 timer = workTime * 60;
-                document.getElementById("studyMessage").textContent = "Torna al lavoro!";
+                document.getElementById("studyMessage").textContent = "Forza, rimettiti a studiare! 💪🏻";
+                document.getElementById("notificationSound").play(); // Riproduce il suono all'inizio del lavoro
             }
         }
     }, 1000);
