@@ -69,6 +69,13 @@ document.getElementById("stopButton").addEventListener("click", () => {
     document.getElementById("cycleInfo").textContent = `Ciclo ${currentCycle}/${cycleCount}`;
 });
 
+// Funzione per chiudere il menu delle Impostazioni
+function closeSettingsMenu() {
+    var settingsContent = document.getElementById('settingsContent');
+    settingsContent.classList.remove('show');
+    setTimeout(() => { settingsContent.style.display = "none"; }, 300); // Delay to match the transition
+}
+
 // Salvataggio delle impostazioni personalizzate
 document.getElementById("saveSettings").addEventListener("click", () => {
     workTime = parseInt(document.getElementById("workTime").value);
@@ -83,6 +90,7 @@ document.getElementById("saveSettings").addEventListener("click", () => {
     document.getElementById("toggleIcon").className = "fas fa-play";
     document.getElementById("studyMessage").textContent = "Buono studio ❤️";
     document.getElementById("cycleInfo").textContent = `Ciclo ${currentCycle}/${cycleCount}`;
+    closeSettingsMenu(); // Chiudi il menu dopo aver salvato
 });
 
 // Ripristina le impostazioni predefinite
@@ -102,14 +110,18 @@ document.getElementById("defaultSettings").addEventListener("click", () => {
     document.getElementById("toggleIcon").className = "fas fa-play";
     document.getElementById("studyMessage").textContent = "Buono studio ❤️";
     document.getElementById("cycleInfo").textContent = `Ciclo ${currentCycle}/${cycleCount}`;
+    closeSettingsMenu(); // Chiudi il menu dopo aver ripristinato
 });
 
 // Gestione del menu Impostazioni
 document.getElementById('settingsButton').addEventListener('click', function() {
     var settingsContent = document.getElementById('settingsContent');
-    if (settingsContent.style.display === "none" || settingsContent.style.display === "") {
-        settingsContent.style.display = "block";
+    if (settingsContent.classList.contains('show')) {
+        settingsContent.classList.remove('show');
+        setTimeout(() => { settingsContent.style.display = "none"; }, 300); // Delay to match the transition
     } else {
-        settingsContent.style.display = "none";
+        settingsContent.style.display = "block";
+        setTimeout(() => { settingsContent.classList.add('show'); }, 10); // Small delay to trigger transition
     }
 });
+
