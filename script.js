@@ -9,6 +9,7 @@ let timerInterval;
 const notificationSound = document.getElementById('notificationSound');
 const studyMessageElement = document.getElementById('studyMessage');
 
+// Salvataggio delle impostazioni
 document.getElementById('saveSettings').addEventListener('click', () => {
     workTime = document.getElementById('workTime').value * 60;
     breakTime = document.getElementById('breakTime').value * 60;
@@ -22,6 +23,30 @@ document.getElementById('saveSettings').addEventListener('click', () => {
     document.getElementById('settingsContent').classList.remove('show');
 });
 
+// Impostazioni predefinite
+document.getElementById('defaultSettings').addEventListener('click', () => {
+    document.getElementById('workTime').value = 25;
+    document.getElementById('breakTime').value = 5;
+    document.getElementById('longBreakTime').value = 15;
+    document.getElementById('cycleCount').value = 4;
+    
+    // Chiudi il menu delle impostazioni
+    document.getElementById('settingsContent').classList.remove('show');
+});
+
+// Annulla le modifiche e chiudi il menu
+document.getElementById('cancelSettings').addEventListener('click', () => {
+    // Ripristina i valori attuali (quelli già salvati)
+    document.getElementById('workTime').value = workTime / 60;
+    document.getElementById('breakTime').value = breakTime / 60;
+    document.getElementById('longBreakTime').value = longBreakTime / 60;
+    document.getElementById('cycleCount').value = cycleCount;
+
+    // Chiudi il menu delle impostazioni
+    document.getElementById('settingsContent').classList.remove('show');
+});
+
+// Apertura del menu delle impostazioni
 document.getElementById('settingsButton').addEventListener('click', () => {
     document.getElementById('settingsContent').classList.toggle('show');
 });
