@@ -26,11 +26,21 @@ document.getElementById('saveSettings').addEventListener('click', () => {
 
 // Impostazioni predefinite
 document.getElementById('defaultSettings').addEventListener('click', () => {
+    // Imposta i valori predefiniti
     document.getElementById('workTime').value = 25;
     document.getElementById('breakTime').value = 5;
     document.getElementById('longBreakTime').value = 15;
     document.getElementById('cycleCount').value = 4;
-    
+
+    // Aggiorna le variabili con i valori predefiniti
+    workTime = 25 * 60;
+    breakTime = 5 * 60;
+    longBreakTime = 15 * 60;
+    cycleCount = 4;
+
+    // Aggiorna immediatamente il timer con il tempo di studio predefinito
+    document.getElementById('time').textContent = formatTime(workTime);
+
     // Chiudi il menu delle impostazioni e rimuovi l'oscuramento
     document.getElementById('settingsContent').classList.remove('show');
     document.getElementById('overlay').style.display = 'none';
