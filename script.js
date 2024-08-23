@@ -19,8 +19,9 @@ document.getElementById('saveSettings').addEventListener('click', () => {
     // Aggiorna immediatamente il timer con il nuovo tempo di studio
     document.getElementById('time').textContent = formatTime(workTime);
     
-    // Chiudi il menu delle impostazioni
+    // Chiudi il menu delle impostazioni e rimuovi l'oscuramento
     document.getElementById('settingsContent').classList.remove('show');
+    document.getElementById('overlay').style.display = 'none';
 });
 
 // Impostazioni predefinite
@@ -30,8 +31,9 @@ document.getElementById('defaultSettings').addEventListener('click', () => {
     document.getElementById('longBreakTime').value = 15;
     document.getElementById('cycleCount').value = 4;
     
-    // Chiudi il menu delle impostazioni
+    // Chiudi il menu delle impostazioni e rimuovi l'oscuramento
     document.getElementById('settingsContent').classList.remove('show');
+    document.getElementById('overlay').style.display = 'none';
 });
 
 // Annulla le modifiche e chiudi il menu
@@ -42,13 +44,39 @@ document.getElementById('cancelSettings').addEventListener('click', () => {
     document.getElementById('longBreakTime').value = longBreakTime / 60;
     document.getElementById('cycleCount').value = cycleCount;
 
-    // Chiudi il menu delle impostazioni
+    // Chiudi il menu delle impostazioni e rimuovi l'oscuramento
     document.getElementById('settingsContent').classList.remove('show');
+    document.getElementById('overlay').style.display = 'none'; // Assicura la rimozione dell'overlay
 });
 
 // Apertura del menu delle impostazioni
-document.getElementById('settingsButton').addEventListener('click', () => {
-    document.getElementById('settingsContent').classList.toggle('show');
+document.getElementById('settingsButton').addEventListener('click', function () {
+    const settingsContent = document.getElementById('settingsContent');
+    const overlay = document.getElementById('overlay');
+    
+    if (settingsContent.classList.contains('show')) {
+        settingsContent.classList.remove('show');
+        overlay.style.display = 'none';
+    } else {
+        settingsContent.classList.add('show');
+        overlay.style.display = 'block';
+    }
+});
+
+// Evita la chiusura del menu quando si clicca al suo interno
+document.getElementById('settingsContent').addEventListener('click', function(event) {
+    event.stopPropagation();
+});
+
+// Chiude il menu cliccando fuori di esso e rimuove l'overlay
+window.addEventListener('click', function (event) {
+    const settingsContent = document.getElementById('settingsContent');
+    const overlay = document.getElementById('overlay');
+    
+    if (!settingsContent.contains(event.target) && !event.target.matches('#settingsButton')) {
+        settingsContent.classList.remove('show');
+        overlay.style.display = 'none';
+    }
 });
 
 document.getElementById('toggleButton').addEventListener('click', () => {
@@ -146,4 +174,3 @@ function formatTime(seconds) {
     const remainingSeconds = seconds % 60;
     return `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
 }
-
