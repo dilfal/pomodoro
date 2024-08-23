@@ -20,6 +20,9 @@ document.getElementById('saveSettings').addEventListener('click', () => {
     // Aggiorna immediatamente il timer con il nuovo tempo di studio
     document.getElementById('time').textContent = formatTime(workTime);
     
+    // Aggiorna immediatamente le informazioni del ciclo
+    updateCycleInfo();
+
     // Chiudi il menu delle impostazioni e rimuovi l'oscuramento
     document.getElementById('settingsContent').classList.remove('show');
     document.getElementById('overlay').style.display = 'none';
